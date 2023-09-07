@@ -15,12 +15,17 @@ enum WeatherConstant: String {
 enum StringConstant {
     static let invalidURL = "Url is invalid"
     static let decodeError = "Decoding Error"
-    static let city = "City"
+    static let city = "CITIES"
+    static let add = "Add"
+    static let enterCityName = "Enter City Name"
+    static let cityAddAlertTitle = " Are you sure you want to add"
+    static let cancel = "Cancel"
 
 }
 
 
 enum CellIdentifier {
     static let mainCityList = "MainCityCell"
+    static let searchCityList = "CityCell"
 
 }

@@ -14,10 +14,42 @@
             filePath = "SwiftWeatherApp/SearchCity/ViewModel/SearchViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "bindPublisher()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6B7146EB-7E8E-4AD6-A8EA-671F4B5627C4 - aa6129a51451f29b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;SwiftWeatherApp.City&gt;) -&gt; () in SwiftWeatherApp.DefaultSearchViewModel.bindPublisher() -&gt; ()"
+                  moduleName = "SwiftWeatherApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wonderwomen/Documents/SwiftWeatherApp/SwiftWeatherApp/SearchCity/ViewModel/SearchViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "6B7146EB-7E8E-4AD6-A8EA-671F4B5627C4 - aa6129a51451f2fa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;SwiftWeatherApp.City&gt;) -&gt; () in SwiftWeatherApp.DefaultSearchViewModel.bindPublisher() -&gt; ()"
+                  moduleName = "SwiftWeatherApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wonderwomen/Documents/SwiftWeatherApp/SwiftWeatherApp/SearchCity/ViewModel/SearchViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

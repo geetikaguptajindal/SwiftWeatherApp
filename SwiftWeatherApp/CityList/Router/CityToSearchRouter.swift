@@ -14,8 +14,17 @@ final class CityToSearchRouter: Router {
         self.navigationController = navigationController
     }
     
-    func navigateToRepoDetails() {
+    func navigateToRepoView() {
         let searchViewController = SearchViewController.instantiateFromViewController()
+        let searchViewModel = DefaultSearchViewModel(_defaultSearchUseCases: DefaultSearchUseCases(networkManeger: NetworkManager.shared()))
+        searchViewController.searchViewModel = searchViewModel
         self.navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
+    func navigateToWeatherView(with cityName: String) {
+        let weatherViewController = WeatherViewController.instantiateFromViewController()
+        let ViewModel = DefaultWeatherViewModel(_defaultWeatherUseCases: DefaultWeatherUseCases(), withCity: cityName)
+        weatherViewController.weatherViewModel = ViewModel
+        self.navigationController?.present(weatherViewController, animated: true)
     }
 }

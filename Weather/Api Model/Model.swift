@@ -25,21 +25,40 @@ struct Wind: Codable {
 }
 
 struct Weather: Codable {
-    let description: String
+    let weatherDescription: String
+    let icon: String
+    
+    enum CodingKeys: String, CodingKey {
+        case weatherDescription = "description"
+        case icon
+    }
 }
 
-
+// convert server response model into local model
 extension WeatherResponse {
     func intoWeatherLocalData() -> WeatherLocalData {
-        WeatherLocalData(temp: self.main.temp, speed: self.wind.speed, humidity: self.main.humidity, name: self.name)
+        WeatherLocalData(temp: self.main.temp, speed: self.wind.speed, humidity: self.main.humidity,description: self.weather.first?.weatherDescription ?? "", icon: self.weather.first?.icon ?? "")
     }
 }
 
 struct WeatherLocalData {
-    let temp: Double
+    var temp: Double
     let speed: Double
     let humidity: Double
-    let name: String
+    let description: String
+    let icon: String
+
+    var formattedTemprature: String {
+        "\(temp)".appending("˚C")
+    }
+    
+    var formattedHumidity: String {
+        "\(humidity)".appending("%")
+    }
+    
+    var formattedWindSpeed: String {
+        "\(speed)"
+    }
 }
 
 

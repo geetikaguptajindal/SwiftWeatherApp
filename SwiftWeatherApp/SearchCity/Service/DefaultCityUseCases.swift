@@ -19,8 +19,8 @@ final class DefaultSearchUseCases: SearchUseCases {
     private let networkManeger: NetworkManager
     private var cancellable = Set<AnyCancellable>()
 
-    var citySubject =  PassthroughSubject<[City], Never> ()
-    var errorSubject = PassthroughSubject<String, Never> ()
+    private var citySubject =  PassthroughSubject<[City], Never> ()
+    private var errorSubject = PassthroughSubject<String, Never> ()
     
     var cityPublisher: AnyPublisher<[City], Never> {
         return citySubject.eraseToAnyPublisher()

@@ -12,15 +12,14 @@ protocol SearchViewModelInputProtocol {
     func getCities(city: String)
 }
 
-protocol SearchViewModel1Output {
+protocol SearchViewModelOutput {
     var cityPublisher: AnyPublisher<[City], Never> { get }
     var errorPublisher: AnyPublisher<String, Never> { get }
 }
 
-
-protocol SearchViewModel: SearchViewModelInputProtocol, SearchViewModel1Output {
+protocol SearchViewModel: SearchViewModelInputProtocol, SearchViewModelOutput {
     var input : SearchViewModelInputProtocol { get }
-    var output : SearchViewModel1Output { get }
+    var output : SearchViewModelOutput { get }
 }
     
 final class DefaultSearchViewModel: SearchViewModel {
@@ -28,7 +27,7 @@ final class DefaultSearchViewModel: SearchViewModel {
     private var cancellable = Set<AnyCancellable>()
 
     var input : SearchViewModelInputProtocol { self }
-    var output : SearchViewModel1Output { self }
+    var output : SearchViewModelOutput { self }
     
     var citySubject =  PassthroughSubject<[City], Never> ()
     var errorSubject = PassthroughSubject<String, Never> ()
