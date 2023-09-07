@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "71BD5C62-317F-4A47-BDB9-B374B6FC6698"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6B7146EB-7E8E-4AD6-A8EA-671F4B5627C4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftWeatherApp/SearchCity/ViewModel/SearchViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "bindPublisher()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "78F507DD-1238-4F8B-AA30-7A795754B924"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftWeatherApp/SearchCity/SearchViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "bindPublisher()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "78F507DD-1238-4F8B-AA30-7A795754B924 - 99134d7a42f802ce"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;SwiftWeatherApp.City&gt;) -&gt; () in SwiftWeatherApp.SearchViewController.bindPublisher() -&gt; ()"
+                  moduleName = "SwiftWeatherApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wonderwomen/Documents/SwiftWeatherApp/SwiftWeatherApp/SearchCity/SearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "78F507DD-1238-4F8B-AA30-7A795754B924 - 99134d7a42f802ce"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;SwiftWeatherApp.City&gt;) -&gt; () in SwiftWeatherApp.SearchViewController.bindPublisher() -&gt; ()"
+                  moduleName = "SwiftWeatherApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wonderwomen/Documents/SwiftWeatherApp/SwiftWeatherApp/SearchCity/SearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
