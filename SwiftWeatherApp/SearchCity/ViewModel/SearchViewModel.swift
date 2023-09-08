@@ -25,10 +25,10 @@ protocol SearchViewModel: SearchViewModelInputProtocol, SearchViewModelOutput {
 }
     
 final class DefaultSearchViewModel: SearchViewModel {
-    private var defaultSearchUseCases: SearchUseCases
+    var defaultSearchUseCases: SearchUseCases
     private var cancellable = Set<AnyCancellable>()
     private var cityList = [City]()
-    fileprivate let cdCityManager: CDCityCDLayer!
+    let cdCityManager: CDCityLayerProtocol!
     
     var input : SearchViewModelInputProtocol { self }
     var output : SearchViewModelOutput { self }
@@ -44,7 +44,7 @@ final class DefaultSearchViewModel: SearchViewModel {
         return errorSubject.eraseToAnyPublisher()
     }
     
-    init(_defaultSearchUseCases: SearchUseCases, withCDManager _cdCityManager: CDCityCDLayer) {
+    init(_defaultSearchUseCases: SearchUseCases, withCDManager _cdCityManager: CDCityLayerProtocol) {
         defaultSearchUseCases = _defaultSearchUseCases
         cdCityManager = _cdCityManager
         bindPublisher()

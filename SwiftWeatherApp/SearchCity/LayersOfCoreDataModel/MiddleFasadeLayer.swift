@@ -10,8 +10,13 @@ import Foundation
 // Main purpose to create this class is to segregate Dore data work from view model like APIusecase.
 
 //Purpose: infuture if we change core data to other database then View model will not effect with this only this onf repo class will chane
+protocol CDCityLayerProtocol {
+    func createPerson(record: City) -> Bool
+    func getAll() -> [City]?
+}
 
-struct CDCityCDLayer {
+struct CDCityCDLayer: CDCityLayerProtocol {
+    
     private let cityDataRepository: CityDataRepository
     
     init(cityDataRepository: CityDataRepository) {

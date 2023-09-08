@@ -38,6 +38,9 @@
 		4DA6D1BF2AAB1338006735DA /* MiddleFasadeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6D1BE2AAB1338006735DA /* MiddleFasadeLayer.swift */; };
 		4DA6D1C22AAB1895006735DA /* CityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6D1C12AAB1895006735DA /* CityViewModel.swift */; };
 		4DA6D1C52AAB2252006735DA /* UIDateTime+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6D1C42AAB2252006735DA /* UIDateTime+Helper.swift */; };
+		4DA6D1C72AAB37CB006735DA /* SearchViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6D1C62AAB37CB006735DA /* SearchViewModelTest.swift */; };
+		4DA6D1C92AAB38EC006735DA /* SearchUseCasesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6D1C82AAB38EC006735DA /* SearchUseCasesMock.swift */; };
+		4DA6D1CB2AAB3BE6006735DA /* CDCityTestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6D1CA2AAB3BE6006735DA /* CDCityTestMock.swift */; };
 		4DB963102AA8FE68004C4C5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB9630F2AA8FE68004C4C5B /* AppDelegate.swift */; };
 		4DB963142AA8FE68004C4C5B /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB963132AA8FE68004C4C5B /* CityViewController.swift */; };
 		4DB963172AA8FE68004C4C5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB963152AA8FE68004C4C5B /* Main.storyboard */; };
@@ -99,6 +102,9 @@
 		4DA6D1BE2AAB1338006735DA /* MiddleFasadeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleFasadeLayer.swift; sourceTree = "<group>"; };
 		4DA6D1C12AAB1895006735DA /* CityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewModel.swift; sourceTree = "<group>"; };
 		4DA6D1C42AAB2252006735DA /* UIDateTime+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDateTime+Helper.swift"; sourceTree = "<group>"; };
+		4DA6D1C62AAB37CB006735DA /* SearchViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTest.swift; sourceTree = "<group>"; };
+		4DA6D1C82AAB38EC006735DA /* SearchUseCasesMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUseCasesMock.swift; sourceTree = "<group>"; };
+		4DA6D1CA2AAB3BE6006735DA /* CDCityTestMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDCityTestMock.swift; sourceTree = "<group>"; };
 		4DB9630C2AA8FE68004C4C5B /* SwiftWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DB9630F2AA8FE68004C4C5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DB963132AA8FE68004C4C5B /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
@@ -342,6 +348,24 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		4DA6D1CC2AAB4613006735DA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4DA6D1C62AAB37CB006735DA /* SearchViewModelTest.swift */,
+				4DA6D1C82AAB38EC006735DA /* SearchUseCasesMock.swift */,
+				4DB963292AA8FE69004C4C5B /* SwiftWeatherAppTests.swift */,
+				4DA6D1CA2AAB3BE6006735DA /* CDCityTestMock.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		4DA6D1CD2AAB4623006735DA /* City */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = City;
+			sourceTree = "<group>";
+		};
 		4DB963032AA8FE68004C4C5B = {
 			isa = PBXGroup;
 			children = (
@@ -386,7 +410,8 @@
 		4DB963282AA8FE69004C4C5B /* SwiftWeatherAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				4DB963292AA8FE69004C4C5B /* SwiftWeatherAppTests.swift */,
+				4DA6D1CD2AAB4623006735DA /* City */,
+				4DA6D1CC2AAB4613006735DA /* Search */,
 			);
 			path = SwiftWeatherAppTests;
 			sourceTree = "<group>";
@@ -700,7 +725,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DA6D1C72AAB37CB006735DA /* SearchViewModelTest.swift in Sources */,
+				4DA6D1CB2AAB3BE6006735DA /* CDCityTestMock.swift in Sources */,
 				4DB9632A2AA8FE69004C4C5B /* SwiftWeatherAppTests.swift in Sources */,
+				4DA6D1C92AAB38EC006735DA /* SearchUseCasesMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

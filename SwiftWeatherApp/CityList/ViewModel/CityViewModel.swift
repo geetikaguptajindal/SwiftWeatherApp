@@ -23,7 +23,7 @@ protocol CityViewModel: CityViewModelInput, CityViewModelOutput {
     
 final class DefaultCityViewModel: CityViewModel {
     private var cityList = [City]()
-    fileprivate let cdCityManager: CDCityCDLayer!
+    let cdCityManager: CDCityLayerProtocol!
     
     var input : CityViewModelInput { self }
     var output : CityViewModelOutput { self }
