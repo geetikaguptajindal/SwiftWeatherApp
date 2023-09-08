@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 final class CityViewController: UIViewController {
     private var tableViewCities: UITableView!
     private var cities : [City] = [City]()
+    private var cancellable = Set<AnyCancellable>()
+
     var router: CityToSearchRouter!
+    var cityViewModel: CityViewModel!
 
     // Header View
     private var topHeaderView: UIView = {
@@ -19,8 +23,8 @@ final class CityViewController: UIViewController {
         return view
     }()
     
-    // Left View
-    private let leftButton: UIButton = {
+    // right View
+    private let rightButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(named: "Button_right"), for: .normal)
         button.setBackgroundImage(UIImage(named: "Button_right"), for: .selected)
@@ -31,16 +35,24 @@ final class CityViewController: UIViewController {
     //Mark:- View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TOdo : remove after DB
-        cities.append(City(city: "vienna"))
+        self.bindPublisher()
         self.assignbackground()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupUI()
+        // call city from DB
+        cityViewModel.input.getCities()
     }
     
+    //Mark: - Private function
+    private func bindPublisher() {
+        cityViewModel.output.cityPublisher.sink { [weak self] cities in
+            self?.cities = cities
+            self?.tableViewCities.reloadData()
+        }.store(in: &cancellable)
+    }
     private func assignbackground(){
         let background = UIImage(named: "Background")
 
@@ -118,13 +130,13 @@ extension CityViewController {
             label.centerXAnchor.constraint(equalTo: topHeaderView.centerXAnchor)
         ])
         
-        topHeaderView.addSubview(leftButton)
-        leftButton.addTarget(self, action: #selector(self.addButtonTapped), for: .touchUpInside)
+        topHeaderView.addSubview(rightButton)
+        rightButton.addTarget(self, action: #selector(self.addButtonTapped), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            leftButton.topAnchor.constraint(equalTo: topHeaderView.topAnchor, constant: 0),
-            leftButton.heightAnchor.constraint(equalToConstant: 100),
-            leftButton.widthAnchor.constraint(equalToConstant: 102),
-            leftButton.trailingAnchor.constraint(equalTo: topHeaderView.trailingAnchor, constant: 0)
+            rightButton.topAnchor.constraint(equalTo: topHeaderView.topAnchor, constant: 0),
+            rightButton.heightAnchor.constraint(equalToConstant: 100),
+            rightButton.widthAnchor.constraint(equalToConstant: 102),
+            rightButton.trailingAnchor.constraint(equalTo: topHeaderView.trailingAnchor, constant: 0)
         ])
     }
     

@@ -10,11 +10,13 @@ import Combine
 
 protocol SearchViewModelInputProtocol {
     func getCities(city: String)
+    func saveRecord(cityObj: City) -> Bool
 }
 
 protocol SearchViewModelOutput {
     var cityPublisher: AnyPublisher<[City], Never> { get }
     var errorPublisher: AnyPublisher<String, Never> { get }
+    func selectedCity(row: Int) -> City
 }
 
 protocol SearchViewModel: SearchViewModelInputProtocol, SearchViewModelOutput {
@@ -25,12 +27,14 @@ protocol SearchViewModel: SearchViewModelInputProtocol, SearchViewModelOutput {
 final class DefaultSearchViewModel: SearchViewModel {
     private var defaultSearchUseCases: SearchUseCases
     private var cancellable = Set<AnyCancellable>()
-
+    private var cityList = [City]()
+    fileprivate let cdCityManager: CDCityCDLayer!
+    
     var input : SearchViewModelInputProtocol { self }
     var output : SearchViewModelOutput { self }
     
-    var citySubject =  PassthroughSubject<[City], Never> ()
-    var errorSubject = PassthroughSubject<String, Never> ()
+    private var citySubject =  PassthroughSubject<[City], Never> ()
+    private var errorSubject = PassthroughSubject<String, Never> ()
     
     var cityPublisher: AnyPublisher<[City], Never> {
         return citySubject.eraseToAnyPublisher()
@@ -40,8 +44,9 @@ final class DefaultSearchViewModel: SearchViewModel {
         return errorSubject.eraseToAnyPublisher()
     }
     
-    init(_defaultSearchUseCases: SearchUseCases) {
+    init(_defaultSearchUseCases: SearchUseCases, withCDManager _cdCityManager: CDCityCDLayer) {
         defaultSearchUseCases = _defaultSearchUseCases
+        cdCityManager = _cdCityManager
         bindPublisher()
     }
     
@@ -49,14 +54,28 @@ final class DefaultSearchViewModel: SearchViewModel {
         defaultSearchUseCases.getCities(city: city)
     }
     
-    func bindPublisher() {
+    private func bindPublisher() {
         defaultSearchUseCases.cityPublisher.sink { [weak self] cities in
+            self?.cityList = cities
             self?.citySubject.send(cities)
         }.store(in: &cancellable)
         
         defaultSearchUseCases.errorPublisher.sink { [weak self] errorString in
+            self?.cityList = []
+            self?.citySubject.send([])
             self?.errorSubject.send(errorString)
         }.store(in: &cancellable)
+    }
+    
+    func selectedCity(row: Int) -> City {
+        return cityList[row]
+    }
+}
+
+//Mark:- Core Data operation
+extension DefaultSearchViewModel {
+    func saveRecord(cityObj: City) -> Bool {
+        cdCityManager.createPerson(record: cityObj)
     }
 }
 

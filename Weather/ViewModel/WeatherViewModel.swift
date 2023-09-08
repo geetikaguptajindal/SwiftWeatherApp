@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol WeatherViewModelOutput {
-    var weatherPublisher: AnyPublisher<WeatherLocalData, Never> { get }
+    var weatherPublisher: AnyPublisher<(WeatherLocalData, Data?), Never> { get }
     var errorPublisher: AnyPublisher<String, Never> { get }
     var cityName: String { get }
 }
@@ -19,17 +19,18 @@ protocol WeatherViewModel: WeatherViewModelOutput {
 }
     
 final class DefaultWeatherViewModel: WeatherViewModel {
+    
     private var defaultWeatherUseCases: WeatherUseCases
     private var cancellable = Set<AnyCancellable>()
-
+    private var weatherInfo: WeatherLocalData!
     var output : WeatherViewModelOutput { self }
     
-    private var weatherSubject =  PassthroughSubject<WeatherLocalData, Never> ()
+    private var weatherSubject =  PassthroughSubject<(WeatherLocalData, Data?), Never> ()
     private var errorSubject = PassthroughSubject<String, Never> ()
         
     private var city: String = ""
     
-    var weatherPublisher: AnyPublisher<WeatherLocalData, Never> {
+    var weatherPublisher: AnyPublisher<(WeatherLocalData, Data?), Never> {
         return weatherSubject.eraseToAnyPublisher()
     }
     
@@ -50,16 +51,31 @@ final class DefaultWeatherViewModel: WeatherViewModel {
     
     func bindPublisher() {
         defaultWeatherUseCases.weatherPublisher.sink { [weak self] weather in
-            self?.weatherSubject.send(weather)
+            self?.weatherInfo = weather
+            self?.weatherSubject.send((weather, nil))
+            self?.downloadImageUrl()
         }.store(in: &cancellable)
         
         defaultWeatherUseCases.errorPublisher.sink { [weak self] errorString in
             self?.errorSubject.send(errorString)
         }.store(in: &cancellable)
+        
+        defaultWeatherUseCases.imageDataPublisher.sink { [weak self] data in
+            if let weatherInfo = self?.weatherInfo {
+                self?.weatherSubject.send((weatherInfo, data))
+            }
+        }.store(in: &cancellable)
     }
     
     var cityName: String {
         city
+    }
+    
+    func downloadImageUrl() {
+        let imageDownloadQueue = DispatchQueue(label: QueueIdentidier.downloadImgae, attributes: .concurrent)
+        imageDownloadQueue.async {
+            self.defaultWeatherUseCases.loadimage(with: self.weatherInfo.icon)
+        }
     }
 }
 

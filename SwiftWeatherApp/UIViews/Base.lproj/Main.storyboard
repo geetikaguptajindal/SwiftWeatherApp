@@ -27,8 +27,8 @@
         <!--Search View Controller-->
         <scene sceneID="Phs-oa-CJy">
             <objects>
-                <tableViewController storyboardIdentifier="SearchViewController" id="YGA-MN-kMv" customClass="SearchViewController" customModule="WeatherApi" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="j5k-A3-MLB">
+                <tableViewController storyboardIdentifier="SearchViewController" id="YGA-MN-kMv" customClass="SearchViewController" customModule="SwiftWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" estimatedSectionFooterHeight="40" id="j5k-A3-MLB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -247,16 +247,28 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Av1-Td-5se">
+                                <rect key="frame" x="30" y="712" width="334" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="W5F-NW-ETv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fDO-l0-6rd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="3hZ-dJ-ucr" firstAttribute="leading" secondItem="fDO-l0-6rd" secondAttribute="leading" constant="43" id="0LN-dJ-LWv"/>
+                            <constraint firstItem="Av1-Td-5se" firstAttribute="leading" secondItem="fDO-l0-6rd" secondAttribute="leading" constant="30" id="0SL-Wn-xve"/>
                             <constraint firstItem="vro-Cx-oS5" firstAttribute="trailing" secondItem="fDO-l0-6rd" secondAttribute="trailing" id="4ky-B4-jit"/>
                             <constraint firstItem="nC6-4G-0Zf" firstAttribute="top" secondItem="fDO-l0-6rd" secondAttribute="top" constant="20" id="FxZ-WY-r1T"/>
                             <constraint firstItem="vro-Cx-oS5" firstAttribute="leading" secondItem="fDO-l0-6rd" secondAttribute="leading" id="GdG-0G-WLz"/>
                             <constraint firstItem="fDO-l0-6rd" firstAttribute="trailing" secondItem="3hZ-dJ-ucr" secondAttribute="trailing" constant="43" id="Gp4-x4-jne"/>
                             <constraint firstItem="nC6-4G-0Zf" firstAttribute="centerX" secondItem="LW5-fb-kjf" secondAttribute="centerX" id="Wae-dE-aar"/>
+                            <constraint firstItem="fDO-l0-6rd" firstAttribute="bottom" secondItem="Av1-Td-5se" secondAttribute="bottom" constant="42" id="ga2-DL-tQW"/>
+                            <constraint firstItem="fDO-l0-6rd" firstAttribute="trailing" secondItem="Av1-Td-5se" secondAttribute="trailing" constant="29" id="iNZ-ef-6Hm"/>
                             <constraint firstItem="vro-Cx-oS5" firstAttribute="bottom" secondItem="LW5-fb-kjf" secondAttribute="bottom" id="m0N-tm-jHX"/>
                             <constraint firstItem="vro-Cx-oS5" firstAttribute="top" secondItem="LW5-fb-kjf" secondAttribute="topMargin" id="pLQ-qY-Utd"/>
                             <constraint firstItem="3hZ-dJ-ucr" firstAttribute="top" secondItem="fDO-l0-6rd" secondAttribute="top" constant="127" id="sLf-Kh-zBO"/>
@@ -267,6 +279,7 @@
                         <outlet property="humidityLabel" destination="cBs-Zh-uTO" id="hjx-5A-2Uu"/>
                         <outlet property="iconImageView" destination="sPR-Jc-AQN" id="d60-AB-lxR"/>
                         <outlet property="tempratureLabel" destination="rWQ-WY-PLR" id="ugT-ic-gBw"/>
+                        <outlet property="timeStampLabel" destination="Av1-Td-5se" id="zrO-ZB-xkN"/>
                         <outlet property="titleHeader" destination="nC6-4G-0Zf" id="tq8-Ss-EyA"/>
                         <outlet property="weatherView" destination="3hZ-dJ-ucr" id="GHB-PC-lHa"/>
                         <outlet property="windLabel" destination="HPx-TJ-gLV" id="Cok-eg-Xle"/>

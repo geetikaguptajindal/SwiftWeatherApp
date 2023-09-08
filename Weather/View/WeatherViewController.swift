@@ -16,6 +16,7 @@ final class WeatherViewController: UIViewController {
     @IBOutlet private weak var windLabel: UILabel!
     @IBOutlet private weak var titleHeader: UILabel!
     @IBOutlet private weak var tempratureLabel: UILabel!
+    @IBOutlet private weak var timeStampLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
         
     var weatherViewModel: WeatherViewModel!
@@ -37,8 +38,10 @@ final class WeatherViewController: UIViewController {
     }
 
     private func bindPublisher() {
-        weatherViewModel.output.weatherPublisher.sink {[weak self] weatherData in
-            self?.setupWeatherData(weatherData: weatherData)
+        weatherViewModel.output.weatherPublisher.sink {[weak self] weatherData, imageData in
+            DispatchQueue.main.async {
+                self?.setupWeatherData(weatherData: weatherData, withimageData: imageData)
+            }
         }.store(in: &cancellable)
         
         weatherViewModel.output.errorPublisher.sink { errorString in
@@ -46,15 +49,19 @@ final class WeatherViewController: UIViewController {
         }.store(in: &cancellable)
     }
     
-    func setupWeatherData(weatherData: WeatherLocalData) {
+    func setupWeatherData(weatherData: WeatherLocalData, withimageData data: Data?) {
         humidityLabel.text = weatherData.formattedHumidity
         tempratureLabel.text = weatherData.formattedTemprature
         windLabel.text = weatherData.formattedWindSpeed
         descriptionLabel.text = weatherData.description
-        
-        // To do add on seperate thred
-        let imgUrl = "https://openweathermap.org/img/wn/\(weatherData.icon).png"
-        iconImageView.imageFromServerURL(urlString: imgUrl)
+        timeStampLabel.text = weatherData.formattedWeatherBottomHeading
+        if let data = data {
+            self.downloadImage(with: data)
+        }
+    }
+    
+    func downloadImage(with data: Data) {
+        self.iconImageView.image = UIImage(data: data)
     }
     
     func setupWeatherViewStyle() {

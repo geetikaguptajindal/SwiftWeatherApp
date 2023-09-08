@@ -16,7 +16,8 @@ final class CityToSearchRouter: Router {
     
     func navigateToRepoView() {
         let searchViewController = SearchViewController.instantiateFromViewController()
-        let searchViewModel = DefaultSearchViewModel(_defaultSearchUseCases: DefaultSearchUseCases(networkManeger: NetworkManager.shared()))
+        let searchViewModel = DefaultSearchViewModel(_defaultSearchUseCases: DefaultSearchUseCases(networkManeger: NetworkManager.shared()), withCDManager: CDCityCDLayer(cityDataRepository: CityDataRepository()))
+        
         searchViewController.searchViewModel = searchViewModel
         self.navigationController?.pushViewController(searchViewController, animated: true)
     }

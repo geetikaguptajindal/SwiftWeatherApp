@@ -48,9 +48,9 @@ final class DefaultSearchUseCases: SearchUseCases {
                 let cities = try decoder.decode([String].self, from: json)
                 
                 let cityModel = cities.map { cityName in
-                    City(city: cityName)
+                    let joinNames = cityName.components(separatedBy: ",")
+                    return City(city: city, country: joinNames.last ?? "")
                 }
-                print(cityModel)
                 self?.citySubject.send(cityModel)
             } catch {
                 self?.errorSubject.send(StringConstant.decodeError)

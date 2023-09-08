@@ -24,6 +24,7 @@ final class SearchViewController: UITableViewController,UISearchBarDelegate {
         setupUI()
     }
         
+    //Mark:- Private function
     private func setupUI() {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.title = StringConstant.enterCityName
@@ -40,18 +41,16 @@ final class SearchViewController: UITableViewController,UISearchBarDelegate {
             print(errorString)
         }.store(in: &cancellable)
     }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
-        searchViewModel.input.getCities(city: searchText)
-    }
-    
     // show alert while add city ans save in databse
-    func save(city:String, country:String){
-        let alert = UIAlertController.init(title: StringConstant.add.appending("\(city) ?"), message: StringConstant.cityAddAlertTitle.appending("\(city)?"), preferredStyle: .alert)
+    private func save(city: City){
+        let alert = UIAlertController.init(title: StringConstant.add.appending("\(city.city) ?"), message: StringConstant.cityAddAlertTitle.appending("\(city.city)?"), preferredStyle: .alert)
         
-        let action = UIAlertAction.init(title: StringConstant.add, style: .default) { (action) in
-            //CoreDataManager.shared.insertCity(city: city,country:country)
-            self.navigationController?.popViewController(animated: true)
+        let action = UIAlertAction.init(title: StringConstant.add, style: .default) { [weak self] (action) in
+            guard let isRecordSave = self?.searchViewModel.saveRecord(cityObj: city) else {
+                print("error in saving")
+                return
+            }
+            self?.navigationController?.popViewController(animated: true)
         }
         
         let cancelAction = UIAlertAction.init(title: StringConstant.cancel, style: .default) { (action) in
@@ -64,23 +63,19 @@ final class SearchViewController: UITableViewController,UISearchBarDelegate {
     }
 }
 
-//Mark- UITableViewDelegate, UITableViewDataSource
+//Mark:- UITableViewDelegate, UITableViewDataSource
 extension SearchViewController {
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cityList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.searchCityList, for: indexPath)
-        let cities = cityList[indexPath.row].city.components(separatedBy: ",")
-        if !cities.isEmpty {
-            cell.textLabel?.text = cities[0]
-            cell.detailTextLabel?.text = cities[2]
+        let city = searchViewModel.selectedCity(row: indexPath.row)
+        if !city.city.isEmpty {
+            cell.textLabel?.text = city.city
+            cell.detailTextLabel?.text = city.country
         } else {
             cell.textLabel?.text = ""
             cell.detailTextLabel?.text = ""
@@ -88,9 +83,18 @@ extension SearchViewController {
         return cell
     }
     
-     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         let cities = cityList[indexPath.row].city.components(separatedBy: ",")
-        print(cities[0])
-        save(city: cities[0], country: cities[2])
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let city = cityList[indexPath.row]
+        save(city: city)
+    }
+}
+
+//Mark:- UISearchBarDelegate
+extension SearchViewController {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        if searchText.count > 2 {
+            searchViewModel.input.getCities(city: searchText)
+        }
     }
 }
