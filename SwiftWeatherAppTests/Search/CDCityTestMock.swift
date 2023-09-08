@@ -13,7 +13,8 @@ final class CityDataRepositoryMock : CDCityLayerProtocol {
     var dataSave: Int = 0
     var dataFetch: Int = 0
         
-    func createPerson(record: City) -> Bool {
+    func saveCity(record: City) -> Bool {
+        XCTAssertNotNil(record)
         dataSave += 1
         return true
     }
@@ -21,6 +22,7 @@ final class CityDataRepositoryMock : CDCityLayerProtocol {
     func getAll() -> [City]? {
         if dataSave > 0 {
             dataFetch += 1
+            return [City(city: "Vienna", country: "Austria")]
         }
         return []
     }

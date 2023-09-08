@@ -63,6 +63,7 @@ final class DefaultWeatherUseCases: WeatherUseCases {
         }
     }
     
+    //Load image
     func loadimage(with icon: String) {
         let weatherTarget = WeatherTargetType.getImage(icon: icon)
         let completePath = weatherTarget.basePath.appending(weatherTarget.endPath).appending("\(icon).png")

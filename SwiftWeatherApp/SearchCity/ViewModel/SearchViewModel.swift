@@ -75,7 +75,7 @@ final class DefaultSearchViewModel: SearchViewModel {
 //Mark:- Core Data operation
 extension DefaultSearchViewModel {
     func saveRecord(cityObj: City) -> Bool {
-        cdCityManager.createPerson(record: cityObj)
+        cdCityManager.saveCity(record: cityObj)
     }
 }
 

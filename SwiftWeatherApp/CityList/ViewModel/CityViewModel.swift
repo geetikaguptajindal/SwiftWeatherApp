@@ -34,7 +34,7 @@ final class DefaultCityViewModel: CityViewModel {
         return citySubject.eraseToAnyPublisher()
     }
     
-    init(withCDManager _cdCityManager: CDCityCDLayer) {
+    init(withCDManager _cdCityManager: CDCityLayerProtocol) {
         cdCityManager = _cdCityManager
     }
 }

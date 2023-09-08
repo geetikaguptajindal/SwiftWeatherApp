@@ -11,6 +11,7 @@ import Combine
 @testable import SwiftWeatherApp
 
 class SearchUseCasesMock : SearchUseCases {
+    
     var searchWithName: String?
     var searchWithCallsCount = 0
     var publisherCalledCount = 0
@@ -29,12 +30,15 @@ class SearchUseCasesMock : SearchUseCases {
         self.searchWithCallsCount = +1
         self.searchWithName = city
         
-        if !city.isEmpty  {
+        if city.count > 1  {
             citySubjectMock.send([City(city: city, country: "Country")])
+            XCTAssertNotNil(city)            
             publisherCalledCount = +1
         } else {
             errorSubjectMock.send("InvalidData")
             publisherCalledCount = +1
         }
+        
+        
     }
 }
