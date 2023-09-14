@@ -49,7 +49,7 @@ final class DefaultSearchUseCases: SearchUseCases {
                 
                 let cityModel = cities.map { cityName in
                     let joinNames = cityName.components(separatedBy: ",")
-                    return City(city: city, country: joinNames.last ?? "")
+                    return City(id: UUID(), city: city, country: joinNames.last ?? "")
                 }
                 self?.citySubject.send(cityModel)
             } catch {

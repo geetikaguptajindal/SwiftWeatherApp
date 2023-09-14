@@ -4,5 +4,16 @@
         <attribute name="country" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="toWeather" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWeather" inverseName="toCity" inverseEntity="CDWeather"/>
+    </entity>
+    <entity name="CDWeather" representedClassName="CDWeather" syncable="YES" codeGenerationType="class">
+        <attribute name="cityId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="humidity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="temp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="timeStamp" optional="YES" attributeType="String"/>
+        <attribute name="wDescription" optional="YES" attributeType="String"/>
+        <attribute name="wind" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCity" inverseName="toWeather" inverseEntity="CDCity"/>
     </entity>
 </model>

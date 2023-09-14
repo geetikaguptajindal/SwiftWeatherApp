@@ -42,6 +42,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         PersistentStorage.shared.saveContext()
+        let path = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
+        print("\(path)")
     }
 }
 

@@ -11,7 +11,7 @@ import Combine
 protocol WeatherViewModelOutput {
     var weatherPublisher: AnyPublisher<(WeatherLocalData, Data?), Never> { get }
     var errorPublisher: AnyPublisher<String, Never> { get }
-    var cityName: String { get }
+    var cityInfo: City { get }
 }
 
 protocol WeatherViewModel: WeatherViewModelOutput {
@@ -23,12 +23,14 @@ final class DefaultWeatherViewModel: WeatherViewModel {
     private var defaultWeatherUseCases: WeatherUseCases
     private var cancellable = Set<AnyCancellable>()
     private var weatherInfo: WeatherLocalData!
+    
+    var weatherLayer: CDWeatherLayerProtocol
     var output : WeatherViewModelOutput { self }
     
     private var weatherSubject =  PassthroughSubject<(WeatherLocalData, Data?), Never> ()
     private var errorSubject = PassthroughSubject<String, Never> ()
         
-    private var city: String = ""
+    var cityObject: City
     
     var weatherPublisher: AnyPublisher<(WeatherLocalData, Data?), Never> {
         return weatherSubject.eraseToAnyPublisher()
@@ -38,15 +40,16 @@ final class DefaultWeatherViewModel: WeatherViewModel {
         return errorSubject.eraseToAnyPublisher()
     }
     
-    init(_defaultWeatherUseCases: WeatherUseCases, withCity name: String) {
-        defaultWeatherUseCases = _defaultWeatherUseCases
-        bindPublisher()
-        getCityWeather(city: name)
+    init(_defaultWeatherUseCases: WeatherUseCases, withCity city: City, weatherLayer: CDWeatherLayerProtocol) {
+        self.defaultWeatherUseCases = _defaultWeatherUseCases
+        self.cityObject = city
+        self.weatherLayer = weatherLayer
+        self.getCityWeather()
+        self.bindPublisher()
     }
     
-    private func getCityWeather(city: String) {
-        self.city = city
-        defaultWeatherUseCases.getWeatherDetail(city: city)
+    private func getCityWeather() {
+        defaultWeatherUseCases.getWeatherDetail()
     }
     
     func bindPublisher() {
@@ -54,6 +57,7 @@ final class DefaultWeatherViewModel: WeatherViewModel {
             self?.weatherInfo = weather
             self?.weatherSubject.send((weather, nil))
             self?.downloadImageUrl()
+            self?.saveRecord()
         }.store(in: &cancellable)
         
         defaultWeatherUseCases.errorPublisher.sink { [weak self] errorString in
@@ -67,15 +71,19 @@ final class DefaultWeatherViewModel: WeatherViewModel {
         }.store(in: &cancellable)
     }
     
-    var cityName: String {
-        city
+    var cityInfo: City {
+        cityObject
     }
     
     func downloadImageUrl() {
         let imageDownloadQueue = DispatchQueue(label: QueueIdentidier.downloadImgae, attributes: .concurrent)
         imageDownloadQueue.async {
-            self.defaultWeatherUseCases.loadimage(with: self.weatherInfo.icon)
+            self.defaultWeatherUseCases.loadimage(with: self.weatherInfo.icon ?? "")
         }
+    }
+    
+    func saveRecord() {
+        let _ = weatherLayer.save(record: weatherInfo)
     }
 }
 

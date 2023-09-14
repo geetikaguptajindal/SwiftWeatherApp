@@ -289,6 +289,39 @@
             </objects>
             <point key="canvasLocation" x="1762.5954198473282" y="23.943661971830988"/>
         </scene>
+        <!--Historical Weather Data View Controller-->
+        <scene sceneID="L1H-vn-HKG">
+            <objects>
+                <viewController storyboardIdentifier="HistoricalWeatherDataViewController" id="Nx4-Yr-BbO" customClass="HistoricalWeatherDataViewController" customModule="SwiftWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="efK-aD-8uR">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3X-a1-4XY">
+                                <rect key="frame" x="166" y="74" width="61" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="m76-cK-s5H"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="IuC-Z3-jvA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="r3X-a1-4XY" firstAttribute="top" secondItem="IuC-Z3-jvA" secondAttribute="top" constant="15" id="SUx-x9-Oju"/>
+                            <constraint firstItem="r3X-a1-4XY" firstAttribute="centerX" secondItem="efK-aD-8uR" secondAttribute="centerX" id="z3R-ta-z0D"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="r3X-a1-4XY" id="Nen-UL-CAW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="95c-h7-Rmf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2689" y="24"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Background" width="375" height="223"/>

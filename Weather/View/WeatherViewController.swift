@@ -20,6 +20,8 @@ final class WeatherViewController: UIViewController {
     @IBOutlet private weak var iconImageView: UIImageView!
         
     var weatherViewModel: WeatherViewModel!
+    var router: WeatherRouter!
+    
     private var cancellable = Set<AnyCancellable>()
 
     // Left View
@@ -72,8 +74,13 @@ final class WeatherViewController: UIViewController {
         weatherView.layer.shadowRadius = 10
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     func setupUI() {
-        titleHeader.text = weatherViewModel.output.cityName.uppercased()
+        titleHeader.text = weatherViewModel.output.cityInfo.city.uppercased()
         
         self.view.addSubview(leftButton)
         leftButton.addTarget(self, action: #selector(self.backButtonTapped), for: .touchUpInside)

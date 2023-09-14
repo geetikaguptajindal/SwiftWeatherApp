@@ -103,7 +103,8 @@ final class CityViewController: UIViewController {
         tableViewCities.dataSource = self
         tableViewCities.separatorStyle = .singleLine
         tableViewCities.showsVerticalScrollIndicator = false
-        tableViewCities.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.mainCityList)
+        tableViewCities.register(UINib(nibName: CellIdentifier.mainCityList, bundle: nibBundle), forCellReuseIdentifier: CellIdentifier.mainCityList)
+
     }
 }
 
@@ -153,14 +154,12 @@ extension CityViewController : UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.mainCityList, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.mainCityList, for: indexPath) as! CityCell
         let city = cities[indexPath.row]
-        cell.textLabel?.text = city.city
-        cell.textLabel?.font = .boldSystemFont(ofSize: 30)
-        cell.textLabel?.textColor = #colorLiteral(red: 0.1389417946, green: 0.5331383944, blue: 0.7812908888, alpha: 1)
+        cell.setupView(cityObj: city)
         cell.backgroundColor = .clear
-        cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
 
@@ -170,6 +169,12 @@ extension CityViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cities[indexPath.row]
-        self.router.navigateToWeatherView(with: city.city)
+        self.router.navigateToWeatherView(with: city)
+    }
+}
+
+extension CityViewController: CityDelegate {
+    func goToHistoricalView(cityObj: City) {
+        router.routingFromWeatherToHistoricalDataView(with: cityObj)
     }
 }

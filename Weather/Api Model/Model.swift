@@ -36,8 +36,8 @@ struct Weather: Codable {
 
 // convert server response model into local model
 extension WeatherResponse {
-    func intoWeatherLocalData(withCity name: String) -> WeatherLocalData {
-        WeatherLocalData(temp: self.main.temp, speed: self.wind.speed, humidity: self.main.humidity,description: self.weather.first?.weatherDescription ?? "", icon: self.weather.first?.icon ?? "", fetchTimeStamp: Date.getCureentDate(), city: name)
+    func intoWeatherLocalData(withCity cityObj: City) -> WeatherLocalData {
+        WeatherLocalData(temp: self.main.temp, speed: self.wind.speed, humidity: self.main.humidity,description: self.weather.first?.weatherDescription ?? "", icon: self.weather.first?.icon ?? "", fetchTimeStamp: Date.getCureentDate(), cityObj: cityObj)
     }
 }
 
@@ -46,9 +46,9 @@ struct WeatherLocalData {
     let speed: Double
     let humidity: Double
     let description: String
-    let icon: String
+    let icon: String?
     let fetchTimeStamp: String
-    let city: String
+    var cityObj: City?
     
     var formattedTemprature: String {
         "\(temp)".appending("˚C")
@@ -63,7 +63,7 @@ struct WeatherLocalData {
     }
     
     var formattedWeatherBottomHeading: String {
-        StringConstant.timeStampTitle.appending(city).appending(StringConstant.onTitle).appending(fetchTimeStamp)
+        StringConstant.timeStampTitle.appending(cityObj?.city ?? "").appending(StringConstant.onTitle).appending(fetchTimeStamp)
     }
 }
 

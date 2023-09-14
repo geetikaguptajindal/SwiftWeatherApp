@@ -28,7 +28,7 @@ final class DefaultSearchViewModel: SearchViewModel {
     var defaultSearchUseCases: SearchUseCases
     private var cancellable = Set<AnyCancellable>()
     private var cityList = [City]()
-    let cdCityManager: CDCityLayerProtocol!
+    let cdCityManager: CDCityLayerProtocol
     
     var input : SearchViewModelInputProtocol { self }
     var output : SearchViewModelOutput { self }
@@ -75,7 +75,7 @@ final class DefaultSearchViewModel: SearchViewModel {
 //Mark:- Core Data operation
 extension DefaultSearchViewModel {
     func saveRecord(cityObj: City) -> Bool {
-        cdCityManager.saveCity(record: cityObj)
+        cdCityManager.save(record: cityObj)
     }
 }
 

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol WeatherUseCases {
-    func getWeatherDetail(city: String)
+    func getWeatherDetail()
     func loadimage(with icon: String)
     
     var weatherPublisher: AnyPublisher<WeatherLocalData, Never> { get }
@@ -39,23 +39,30 @@ final class DefaultWeatherUseCases: WeatherUseCases {
     private var imageDataSubject =  PassthroughSubject<Data, Never> ()
 
     private var cancellable = Set<AnyCancellable>()
-
-    func getWeatherDetail(city: String) {
-        let weatherTarget = WeatherTargetType.getCityWeather(city: city)
+    private let cityObj: City
+    
+    
+    init(with cityObj: City) {
+        self.cityObj = cityObj
+    }
+    
+    func getWeatherDetail() {
+        let weatherTarget = WeatherTargetType.getCityWeather(city: cityObj.city)
         let completePath = weatherTarget.basePath.appending(weatherTarget.endPath)        
         guard let url: URL = URL(string: completePath) else {
             return errorSubject.send(StringConstant.invalidURL)
         }
         
         networkManeger.performGETRequest(weatherTarget.parameter, url: url) { [weak self] responseObject in
+            guard let self else { return }
             do {
                 let json = try JSONSerialization.data(withJSONObject: responseObject)
                 let decoder = JSONDecoder()
                 let weatherResponse = try decoder.decode(WeatherResponse.self, from: json)
-                let weatherLocalResponse = weatherResponse.intoWeatherLocalData(withCity: city)
-                self?.weatherSubject.send(weatherLocalResponse)
+                let weatherLocalResponse = weatherResponse.intoWeatherLocalData(withCity: self.cityObj)
+                self.weatherSubject.send(weatherLocalResponse)
             } catch {
-                self?.errorSubject.send(StringConstant.decodeError)
+                self.errorSubject.send(StringConstant.decodeError)
             }
         } failure: { [weak self] errorString, statusCode in
             print(errorString, statusCode)

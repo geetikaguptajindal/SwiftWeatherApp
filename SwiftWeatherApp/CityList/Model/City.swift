@@ -8,6 +8,7 @@
 import Foundation
 
 struct City: Decodable {
+    let id: UUID
     let city: String
     let country: String
 }

@@ -22,9 +22,21 @@ final class CityToSearchRouter: Router {
         self.navigationController?.pushViewController(searchViewController, animated: true)
     }
     
-    func navigateToWeatherView(with cityName: String) {
+    func navigateToWeatherView(with cityObj: City) {
         let weatherViewController = WeatherViewController.instantiateFromViewController()
-        let ViewModel = DefaultWeatherViewModel(_defaultWeatherUseCases: DefaultWeatherUseCases(), withCity: cityName)
+
+        let ViewModel = DefaultWeatherViewModel(_defaultWeatherUseCases: DefaultWeatherUseCases(with: cityObj), withCity: cityObj, weatherLayer: WeatherLayer(weatherRepository: WeatherRepository()))
+        weatherViewController.weatherViewModel = ViewModel
+        
+        // router
+        let router = WeatherRouter(navigationController: self.navigationController ?? UINavigationController())
+        weatherViewController.router = router
+        self.navigationController?.present(weatherViewController, animated: true)
+    }
+    
+    func routingFromWeatherToHistoricalDataView(with cityObj: City) {
+        let weatherViewController = HistoricalWeatherDataViewController.instantiateFromViewController()
+        let ViewModel = DefaultHistoricalWeatherViewModel(weatherLayer: WeatherLayer(weatherRepository: WeatherRepository()), cityObj: cityObj)
         weatherViewController.weatherViewModel = ViewModel
         self.navigationController?.present(weatherViewController, animated: true)
     }

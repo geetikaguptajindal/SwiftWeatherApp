@@ -11,7 +11,7 @@ import Foundation
 
 //Purpose: infuture if we change core data to other database then View model will not effect with this only this onf repo class will chane
 protocol CDCityLayerProtocol {
-    func saveCity(record: City) -> Bool
+    func save(record: City) -> Bool
     func getAll() -> [City]?
 }
 
@@ -23,7 +23,7 @@ struct CDCityCDLayer: CDCityLayerProtocol {
         self.cityDataRepository = cityDataRepository
     }
     
-    func saveCity(record: City) -> Bool {
+    func save(record: City) -> Bool {
         guard record.city.count > 1 else {
             return false
         }

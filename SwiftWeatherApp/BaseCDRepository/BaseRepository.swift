@@ -13,7 +13,4 @@ protocol BaseRepository {
 
     func create(record: T)
     func getAll() -> [T]?
-    
-    // this is for weather record as per city id
-    func get(byIdentifier id: UUID) -> T?
 }

@@ -24,8 +24,10 @@ enum StringConstant {
 }
 
 enum CellIdentifier {
-    static let mainCityList = "MainCityCell"
+    static let mainCityList = "CityCell"
     static let searchCityList = "CityCell"
+    static let weatherList = "WeatherList"
+
 }
 
 enum QueueIdentidier {
